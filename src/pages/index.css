@@ -9,8 +9,7 @@
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
-  background-image: url("/Users/kesavsaivikashbollam/Desktop/fruity-app/public/assets/fruits-banner.jpg");
-  background-size: auto;
+  background-image: url("../assets/fruits-banner.jpg");
   background-position: center;
 }
 
@@ -19,7 +18,7 @@
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
-  background-image: url("/Users/kesavsaivikashbollam/Desktop/fruity-app/public/assets/jar-banner.png");
+  background-image: url("../assets/jar-banner.png");
   background-size: auto;
   background-position: center;
 }
