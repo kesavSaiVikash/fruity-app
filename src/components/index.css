@@ -1,0 +1,112 @@
+/* General Container */
+.container {
+  @apply p-8 bg-white shadow-xl rounded-lg w-full max-w-md h-full;
+}
+
+/* Header */
+.header {
+  @apply text-2xl font-bold mb-4 text-gray-800 text-center;
+}
+
+/* Select Group By */
+.select-group {
+  @apply mb-4 p-3 w-full border rounded-lg text-gray-800;
+}
+
+/* Group Title */
+.group-title {
+  @apply text-lg font-semibold mb-2 text-gray-700 flex justify-between items-center cursor-pointer;
+}
+
+/* Group Toggle Icon */
+.group-toggle {
+  @apply ml-2 h-5 w-5;
+}
+
+/* Group Button */
+.group-button {
+  @apply ml-auto px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition;
+}
+
+/* Fruit Item */
+.fruit-item {
+  @apply flex justify-between items-center bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition mb-2;
+}
+
+/* Add Button */
+.add-button {
+  @apply px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition;
+}
+
+/* Loader Animation */
+.loader {
+  @apply w-16 h-16 border-4 border-blue-600 border-t-transparent border-solid rounded-full animate-spin;
+}
+
+/* Popup */
+.popup-container {
+  @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50;
+}
+
+.popup-content {
+  @apply bg-white rounded-lg shadow-lg p-8;
+}
+
+.popup-message {
+  @apply mb-4 text-gray-800;
+}
+
+.popup-buttons {
+  @apply flex justify-end space-x-4;
+}
+
+.popup-button {
+  @apply px-4 py-2 rounded-lg transition;
+}
+
+.popup-cancel {
+  @apply bg-gray-300 hover:bg-gray-400;
+}
+
+.popup-confirm {
+  @apply bg-red-500 text-white hover:bg-red-600;
+}
+
+/* Layout Styles */
+.layout-container {
+  @apply min-h-screen bg-blue-200 flex flex-col justify-center items-center p-4;
+}
+
+.app-title {
+  @apply text-3xl font-bold text-gray-800 mb-6 text-center;
+}
+
+/* Main Content */
+.main-content {
+  @apply flex flex-col md:flex-row w-full max-w-screen-lg h-full gap-6;
+}
+
+/* Card Container */
+.card-container {
+  @apply flex flex-1 max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden flex-col;
+}
+
+/* Responsive Spacing */
+.card-container:first-of-type {
+  @apply md:ml-4;
+}
+
+.card-container:last-of-type {
+  @apply md:ml-4;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .main-content {
+    @apply flex-col items-center;
+  }
+
+  .card-container {
+    @apply max-w-xs;
+  }
+}

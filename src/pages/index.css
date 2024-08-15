@@ -1,0 +1,107 @@
+/* Page Container */
+.page-container {
+  @apply flex justify-center items-center h-screen bg-gray-50;
+}
+
+/* Card Style */
+.fruit-list-card {
+  @apply p-8 bg-white shadow-lg rounded-lg w-full max-w-md h-full border border-gray-200;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  background-image: url("/Users/kesavsaivikashbollam/Desktop/fruity-app/public/assets/fruits-banner.jpg");
+  background-size: auto;
+  background-position: center;
+}
+
+.jar-card {
+  @apply p-8 bg-white shadow-lg rounded-lg w-full max-w-md h-full border border-gray-200;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  background-image: url("/Users/kesavsaivikashbollam/Desktop/fruity-app/public/assets/jar-banner.png");
+  background-size: auto;
+  background-position: center;
+}
+
+/* Card Header */
+.card-header {
+  @apply text-2xl font-bold text-gray-900 mb-4 text-center uppercase tracking-wide bg-white p-4 rounded-lg shadow-md;
+}
+
+/* Group Container for Scroll */
+.group-container {
+  @apply flex-1 overflow-y-auto;
+}
+
+/* List Item */
+.list-item {
+  @apply flex justify-between items-center p-4 bg-white rounded-lg shadow-sm hover:bg-gray-100 transition;
+  border: 1px solid transparent;
+}
+
+.list-item:hover {
+  border-color: #e5e7eb;
+}
+
+/* List Item Text */
+.list-item-text {
+  @apply text-gray-700;
+}
+
+/* Remove Button */
+.remove-button {
+  @apply px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition;
+}
+
+/* Loader */
+.loader {
+  @apply w-16 h-16 border-4 border-blue-600 border-t-transparent border-solid rounded-full animate-spin;
+}
+
+/* Select Group By */
+.select-group {
+  @apply mb-4 p-3 w-full border rounded-lg text-gray-800;
+}
+
+/* Group Title */
+.group-title {
+  @apply text-lg font-semibold mb-2 text-gray-700 flex justify-between items-center cursor-pointer;
+}
+
+/* Group Toggle Icon */
+.group-toggle {
+  @apply ml-2 h-5 w-5;
+}
+
+/* Group Button */
+.group-button {
+  @apply ml-auto px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition;
+}
+
+/* Total Calories */
+.total-calories {
+  @apply text-lg text-center font-medium mb-4 text-gray-700;
+}
+
+/* Remove All Button */
+.remove-all-button {
+  @apply mb-4 px-4 py-2 w-full bg-red-500 text-white rounded-lg hover:bg-red-600 transition;
+}
+
+/* List Container */
+.list-container {
+  @apply flex-1 overflow-y-auto;
+}
+
+.add-button {
+  @apply bg-green-500 text-white px-2 py-1 rounded;
+}
+
+.list-item {
+  @apply flex items-center justify-between p-2 border-b;
+}
+
+.button-group {
+  @apply flex space-x-2;
+}
