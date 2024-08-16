@@ -1,11 +1,6 @@
-/* General Container */
+/* General Styles */
 .container {
   @apply p-8 bg-white shadow-xl rounded-lg w-full max-w-md h-full;
-}
-
-/* Header */
-.header {
-  @apply text-2xl font-bold mb-4 text-gray-800 text-center;
 }
 
 /* Select Group By */
@@ -16,11 +11,6 @@
 /* Group Title */
 .group-title {
   @apply text-lg font-semibold mb-2 text-gray-700 flex justify-between items-center cursor-pointer;
-}
-
-/* Group Toggle Icon */
-.group-toggle {
-  @apply ml-2 h-5 w-5;
 }
 
 /* Group Button */
@@ -50,10 +40,6 @@
 
 .popup-content {
   @apply bg-white rounded-lg shadow-lg p-8;
-}
-
-.popup-message {
-  @apply mb-4 text-gray-800;
 }
 
 .popup-buttons {
@@ -91,16 +77,24 @@
   @apply flex flex-1 max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden flex-col;
 }
 
-/* Responsive Spacing */
-.card-container:first-of-type {
-  @apply md:ml-4;
+/* Pagination */
+.pagination-container {
+  @apply flex justify-center items-center mt-4 px-2;
 }
 
-.card-container:last-of-type {
-  @apply md:ml-4;
+.pagination-button {
+  @apply px-3 py-1 border rounded-lg text-gray-800 bg-white transition-colors duration-200 text-sm md:text-base;
 }
 
-/* Responsive Breakpoints */
+.pagination-button:disabled {
+  @apply cursor-not-allowed opacity-50;
+}
+
+.pagination-active {
+  @apply bg-blue-500 text-white;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .main-content {
     @apply flex-col items-center;
@@ -108,5 +102,9 @@
 
   .card-container {
     @apply max-w-xs;
+  }
+
+  .pagination-container {
+    @apply px-2; /* Ensure padding on smaller screens */
   }
 }

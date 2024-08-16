@@ -104,3 +104,27 @@
 .button-group {
   @apply flex space-x-2;
 }
+
+.fruit-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.fruit-list-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.fruit-list-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.fruit-group-container {
+  margin-bottom: 1rem;
+  overflow: auto;
+}

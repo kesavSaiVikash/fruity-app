@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useFruits } from "../hooks/useFruits";
 import { useJar } from "../hooks/useJar";
-import { Loader, SelectGroupBy, Group, FruitItem } from "../components";
+import {
+  Loader,
+  SelectGroupBy,
+  Group,
+  Pagination,
+  FruitItem,
+} from "../components";
 
 const FruitList: React.FC = () => {
-  const { fruits, groupedFruits, groupBy, handleGroupByChange, loading } =
-    useFruits();
+  const {
+    fruits,
+    groupedFruits,
+    groupBy,
+    handleGroupByChange,
+    loading,
+    currentPage,
+    itemsPerPage,
+    totalItems,
+    handlePageChange,
+    paginatedGroupedKeys,
+  } = useFruits();
   const { addFruitToJar, addGroupOfFruitsToJar } = useJar();
 
   const [collapsedGroups, setCollapsedGroups] = useState<
@@ -13,14 +29,31 @@ const FruitList: React.FC = () => {
   >({});
 
   useEffect(() => {
-    if (groupBy) {
-      const initialCollapsedState: Record<string, boolean> = {};
-      Object.keys(groupedFruits).forEach((key) => {
-        initialCollapsedState[key] = true;
+    setCollapsedGroups((prevCollapsedGroups) => {
+      const newCollapsedState: Record<string, boolean> = {
+        ...prevCollapsedGroups,
+      };
+
+      paginatedGroupedKeys.forEach((key) => {
+        if (newCollapsedState[key] === undefined) {
+          newCollapsedState[key] = true; // Collapse all groups by default
+        }
       });
-      setCollapsedGroups(initialCollapsedState);
-    }
-  }, [groupedFruits, groupBy]);
+
+      if (
+        JSON.stringify(newCollapsedState) !==
+        JSON.stringify(prevCollapsedGroups)
+      ) {
+        return newCollapsedState;
+      }
+
+      return prevCollapsedGroups;
+    });
+  }, [paginatedGroupedKeys]);
+
+  useEffect(() => {
+    setCollapsedGroups({});
+  }, [groupBy]);
 
   const handleToggleGroup = (group: string) => {
     setCollapsedGroups((prev) => ({
@@ -35,9 +68,9 @@ const FruitList: React.FC = () => {
         {loading && <Loader />}
         <h1 className="card-header">Fruits List</h1>
         <SelectGroupBy groupBy={groupBy} onChange={handleGroupByChange} />
-        <div className="group-container">
+        <div className="fruit-group-container">
           {groupBy ? (
-            Object.keys(groupedFruits).map((key) => (
+            paginatedGroupedKeys.map((key) => (
               <Group
                 key={key}
                 name={key}
@@ -60,6 +93,12 @@ const FruitList: React.FC = () => {
             </ul>
           )}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );

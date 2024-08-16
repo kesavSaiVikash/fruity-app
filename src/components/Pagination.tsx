@@ -1,44 +1,69 @@
-// src/components/Pagination.tsx
 import React from "react";
 
 interface PaginationProps {
   currentPage: number;
-  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
   onPageChange: (page: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
-  totalPages,
+  totalItems,
+  itemsPerPage,
   onPageChange,
 }) => {
-  const handlePrevious = () => {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const handlePrevPage = () => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
     }
   };
 
-  const handleNext = () => {
+  const handleNextPage = () => {
     if (currentPage < totalPages) {
       onPageChange(currentPage + 1);
     }
   };
 
+  const handlePageClick = (page: number) => {
+    onPageChange(page);
+  };
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          className={`pagination-button ${
+            i === currentPage ? "pagination-active" : ""
+          }`}
+          onClick={() => handlePageClick(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return pageNumbers;
+  };
+
   return (
-    <div className="pagination">
+    <div className="pagination-container">
       <button
         className="pagination-button"
-        onClick={handlePrevious}
+        onClick={handlePrevPage}
         disabled={currentPage === 1}
       >
         Previous
       </button>
-      <span className="pagination-info">
-        Page {currentPage} of {totalPages}
-      </span>
+      {renderPageNumbers()}
       <button
         className="pagination-button"
-        onClick={handleNext}
+        onClick={handleNextPage}
         disabled={currentPage === totalPages}
       >
         Next

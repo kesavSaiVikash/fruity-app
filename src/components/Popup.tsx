@@ -6,6 +6,7 @@ const Popup: React.FC<PopupProps> = ({ message, onConfirm, onCancel }) => {
     <div className="popup-container">
       <div className="popup-content">
         <p className="popup-message">{message}</p>
+        <br />
         <div className="popup-buttons">
           <button onClick={onCancel} className="popup-button popup-cancel">
             Cancel

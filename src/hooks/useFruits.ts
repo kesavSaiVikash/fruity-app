@@ -9,8 +9,9 @@ export const useFruits = () => {
   const [groupedFruits, setGroupedFruits] = useState<Record<string, Fruit[]>>(
     {}
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  // Fetch fruits data on component mount/ page loaded
   useEffect(() => {
     const fetchAndSetFruits = async () => {
       setLoading(true);
@@ -27,7 +28,6 @@ export const useFruits = () => {
     fetchAndSetFruits();
   }, []);
 
-  // Group fruits based on the selected key
   useEffect(() => {
     if (!groupBy) {
       setGroupedFruits({});
@@ -41,12 +41,52 @@ export const useFruits = () => {
     }, {});
 
     setGroupedFruits(grouped);
+    setCurrentPage(1); // Reset to the first page when grouping changes
   }, [fruits, groupBy]);
 
-  // Update the grouping key
   const handleGroupByChange = useCallback((value: GroupingKey | "") => {
     setGroupBy(value);
+    setCurrentPage(1); // Reset to the first page when grouping changes
   }, []);
 
-  return { fruits, groupedFruits, groupBy, handleGroupByChange, loading };
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  // Paginate fruits when no grouping is applied
+  const paginatedFruits = groupBy
+    ? [] // No fruits to display when grouped
+    : fruits.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      );
+
+  // Get the list of grouped keys and apply pagination
+  const groupedKeys = Object.keys(groupedFruits);
+  const totalGroups = groupedKeys.length;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const paginatedGroupedKeys = groupedKeys.slice(startIndex, endIndex);
+  const groupedPaginatedFruits = paginatedGroupedKeys.reduce<
+    Record<string, Fruit[]>
+  >((acc, key) => {
+    acc[key] = groupedFruits[key];
+    return acc;
+  }, {});
+
+  const totalItems = groupBy ? totalGroups : fruits.length;
+
+  return {
+    fruits: groupBy ? [] : paginatedFruits,
+    groupedFruits: groupBy ? groupedPaginatedFruits : {},
+    groupBy,
+    handleGroupByChange,
+    loading,
+    currentPage,
+    itemsPerPage,
+    totalItems,
+    handlePageChange,
+    paginatedGroupedKeys,
+  };
 };
