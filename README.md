@@ -45,8 +45,12 @@ The Fruits Jar Application is built with React and TypeScript. It lets you view 
 
 - Custom Hooks:
 
-  - useFruits: Handles fruit data, grouping, and pagination.
-  - useJar: Manages jar state, including adding/removing fruits and calculating total calories.
+  - useFruits: Manages fruit data, grouping, pagination, and data fetching. Utilizes useMemo and useCallback for efficient rendering and state updates.
+
+    - useMemo: Optimizes performance by memoizing grouped fruit quantities and calories in the jar.
+    - useCallback: Avoids unnecessary re-renders by memoizing functions for updating fruit quantities and handling state changes.
+
+  - useJar: Handles jar state, including adding/removing fruits and calculating total calories. Uses useMemo to calculate grouped fruits with quantities and calories.
 
 - Modularization: The application is modularized to enhance reusability and maintainability.
 
