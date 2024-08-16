@@ -4,15 +4,12 @@ import { jarFruitsAtom, totalCaloriesAtom } from "../state/jarAtoms";
 import { Fruit } from "../types";
 
 export const useJar = () => {
-  // Atom states for fruits in the jar and total calories
   const [jarFruits, setJarFruits] = useAtom(jarFruitsAtom);
   const [totalCalories, setTotalCalories] = useAtom(totalCaloriesAtom);
-
-  // State for managing the visibility of the confirmation popup
   const [isConfirmationPopupVisible, setIsConfirmationPopupVisible] =
     useState(false);
 
-  // Utility function to update the quantity of a fruit in the jar
+  // Update fruit quantity and total calories
   const updateFruitQuantity = useCallback(
     (fruit: Fruit, increment: boolean) => {
       setJarFruits((prevFruits) => {
@@ -43,14 +40,15 @@ export const useJar = () => {
     [setJarFruits, setTotalCalories]
   );
 
-  // Functions to handle adding and removing fruits
+  // Handle fruit operations
   const addFruitToJar = useCallback(
     (fruit: Fruit) => updateFruitQuantity({ ...fruit, quantity: 1 }, true),
     [updateFruitQuantity]
   );
 
   const addGroupOfFruitsToJar = useCallback(
-    (groupFruits: Fruit[]) => groupFruits.forEach(addFruitToJar),
+    (groupFruits: Fruit[]) =>
+      groupFruits.forEach((fruit) => addFruitToJar(fruit)),
     [addFruitToJar]
   );
 
@@ -59,10 +57,11 @@ export const useJar = () => {
     [updateFruitQuantity]
   );
 
-  // Functions to handle the removal of all fruits from the jar
-  const initiateRemoveAllFruits = useCallback(() => {
-    setIsConfirmationPopupVisible(true);
-  }, []);
+  // Handle removal of all fruits
+  const initiateRemoveAllFruits = useCallback(
+    () => setIsConfirmationPopupVisible(true),
+    []
+  );
 
   const confirmRemoveAllFruits = useCallback(() => {
     setJarFruits([]);
@@ -70,20 +69,20 @@ export const useJar = () => {
     setIsConfirmationPopupVisible(false);
   }, [setJarFruits, setTotalCalories]);
 
-  const cancelRemoveAllFruits = useCallback(() => {
-    setIsConfirmationPopupVisible(false);
-  }, []);
+  const cancelRemoveAllFruits = useCallback(
+    () => setIsConfirmationPopupVisible(false),
+    []
+  );
 
-  // Memoized value for grouping fruits by their names with quantities and calories
+  // Memoized grouped fruits with quantities
   const groupedFruitsWithQuantities = useMemo(() => {
     return jarFruits.reduce<
       Record<string, { quantity: number; calories: number }>
     >((acc, fruit) => {
       if (!acc[fruit.name]) {
-        acc[fruit.name] = { quantity: 0, calories: 0 };
+        acc[fruit.name] = { quantity: 0, calories: fruit.nutritions.calories };
       }
       acc[fruit.name].quantity += fruit.quantity;
-      acc[fruit.name].calories = fruit.nutritions.calories;
       return acc;
     }, {});
   }, [jarFruits]);

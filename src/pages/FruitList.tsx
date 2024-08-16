@@ -29,29 +29,20 @@ const FruitList: React.FC = () => {
   >({});
 
   useEffect(() => {
-    setCollapsedGroups((prevCollapsedGroups) => {
-      const newCollapsedState: Record<string, boolean> = {
-        ...prevCollapsedGroups,
-      };
-
+    // Initialize collapsed state for new groups
+    setCollapsedGroups((prev) => {
+      const newState = { ...prev };
       paginatedGroupedKeys.forEach((key) => {
-        if (newCollapsedState[key] === undefined) {
-          newCollapsedState[key] = true; // Collapse all groups by default
+        if (!(key in newState)) {
+          newState[key] = true; // Collapse all groups by default
         }
       });
-
-      if (
-        JSON.stringify(newCollapsedState) !==
-        JSON.stringify(prevCollapsedGroups)
-      ) {
-        return newCollapsedState;
-      }
-
-      return prevCollapsedGroups;
+      return newState;
     });
   }, [paginatedGroupedKeys]);
 
   useEffect(() => {
+    // Reset collapsed state when grouping changes
     setCollapsedGroups({});
   }, [groupBy]);
 
@@ -75,7 +66,7 @@ const FruitList: React.FC = () => {
                 key={key}
                 name={key}
                 fruits={groupedFruits[key]}
-                isCollapsed={collapsedGroups[key]}
+                isCollapsed={collapsedGroups[key] ?? true}
                 onToggle={() => handleToggleGroup(key)}
                 onAddAll={() => addGroupOfFruitsToJar(groupedFruits[key])}
                 onAddFruit={addFruitToJar}

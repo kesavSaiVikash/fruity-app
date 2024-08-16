@@ -15,14 +15,16 @@ const Jar: React.FC = () => {
     groupedFruitsWithQuantities,
   } = useJar();
 
+  const hasFruits = Object.keys(groupedFruitsWithQuantities).length > 0;
+
   return (
     <div className="page-container">
       <div className="jar-card">
         <h1 className="card-header">Your Jar</h1>
         <br />
-        <div className="total-calories">Total Calories : {totalCalories}</div>
+        <div className="total-calories">Total Calories: {totalCalories}</div>
 
-        {Object.keys(groupedFruitsWithQuantities).length > 0 && (
+        {hasFruits && (
           <button
             onClick={initiateRemoveAllFruits}
             className="remove-all-button"
@@ -32,27 +34,27 @@ const Jar: React.FC = () => {
         )}
 
         <div className="list-container">
-          {Object.keys(groupedFruitsWithQuantities).length === 0 ? (
+          {!hasFruits ? (
             <p className="text-gray-500 text-center text-lg font-medium mt-4">
               No fruits in your jar
             </p>
           ) : (
             <ul className="space-y-4 mt-4">
               {Object.entries(groupedFruitsWithQuantities).map(
-                ([fruitName, fruit]) => (
+                ([fruitName, { quantity, calories }]) => (
                   <li
                     key={fruitName}
                     className="list-item items-center justify-between"
                   >
                     <span className="list-item-text">
-                      {`${fruitName} (${fruit.calories} cal) x ${fruit.quantity}`}
+                      {`${fruitName} (${calories} cal) x ${quantity}`}
                     </span>
                     <div className="button-group">
                       <button
                         onClick={() =>
                           addFruitToJar({
                             name: fruitName,
-                            nutritions: { calories: fruit.calories },
+                            nutritions: { calories },
                           } as Fruit)
                         }
                         className="add-button"
@@ -63,7 +65,7 @@ const Jar: React.FC = () => {
                         onClick={() =>
                           removeFruitFromJar({
                             name: fruitName,
-                            nutritions: { calories: fruit.calories },
+                            nutritions: { calories },
                           } as Fruit)
                         }
                         className="remove-button"

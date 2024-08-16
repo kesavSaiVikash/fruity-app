@@ -17,7 +17,7 @@ export const useFruits = () => {
       setLoading(true);
       try {
         const fruitsData = await fetchFruits();
-        setFruits(fruitsData);
+        setFruits(fruitsData.sort((a, b) => a.name.localeCompare(b.name)));
       } catch (error) {
         console.error("Failed to fetch fruits:", error);
       } finally {
@@ -36,7 +36,8 @@ export const useFruits = () => {
 
     const grouped = fruits.reduce<Record<string, Fruit[]>>((acc, fruit) => {
       const key = fruit[groupBy];
-      acc[key] = acc[key] ? [...acc[key], fruit] : [fruit];
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(fruit);
       return acc;
     }, {});
 
@@ -53,21 +54,20 @@ export const useFruits = () => {
     setCurrentPage(page);
   };
 
+  // General pagination function
+  const paginate = (items: any[]) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return items.slice(startIndex, endIndex);
+  };
+
   // Paginate fruits when no grouping is applied
-  const paginatedFruits = groupBy
-    ? [] // No fruits to display when grouped
-    : fruits.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      );
+  const paginatedFruits = groupBy ? [] : paginate(fruits);
 
-  // Get the list of grouped keys and apply pagination
-  const groupedKeys = Object.keys(groupedFruits);
-  const totalGroups = groupedKeys.length;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  // Paginate grouped fruits
+  const groupedKeys = Object.keys(groupedFruits).sort();
+  const paginatedGroupedKeys = paginate(groupedKeys);
 
-  const paginatedGroupedKeys = groupedKeys.slice(startIndex, endIndex);
   const groupedPaginatedFruits = paginatedGroupedKeys.reduce<
     Record<string, Fruit[]>
   >((acc, key) => {
@@ -75,7 +75,7 @@ export const useFruits = () => {
     return acc;
   }, {});
 
-  const totalItems = groupBy ? totalGroups : fruits.length;
+  const totalItems = groupBy ? groupedKeys.length : fruits.length;
 
   return {
     fruits: groupBy ? [] : paginatedFruits,
