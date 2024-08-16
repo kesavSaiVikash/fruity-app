@@ -15,6 +15,6 @@ export const fetchFruits = async (): Promise<Fruit[]> => {
     return data;
   } catch (error) {
     console.error("API call failed:", error);
-    return []; // Return an empty array or handle this as needed
+    return [];
   }
 };

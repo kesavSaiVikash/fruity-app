@@ -1,46 +1,79 @@
-# Getting Started with Create React App
+## Fruity App (Finofo take home assignment - KB) ReadMe:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Setup Instructions:**
 
-## Available Scripts
+1. Clone the repository:
 
-In the project directory, you can run:
+   - git clone https://github.com/kesavSaiVikash/fruity-app.git
+   - cd fruity-app
 
-### `npm start`
+2. Install dependencies:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+   - npm install
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Start development server:
 
-### `npm test`
+   - npm start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Open the app:
 
-### `npm run build`
+   - Open http://localhost:3000 to view the app in your browser.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Project Overview:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The Fruits Jar Application is built with React and TypeScript. It lets you view and manage a list of fruits from the Fruityvice API. You can group fruits, add them to a jar, and see the total calories of your selections.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Features:**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Data Fetching: Fetches fruit data from the Fruityvice API.
+- Group By Functionality: Group fruits by "None", "Family", "Order", or "Genus".
+- Pagination: Navigate through fruit pages.
+- Fruit List: Add fruits to the jar individually or by group. Manage duplicates and display their quantities.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Jar Functionality:
+  - Add/Remove Fruits: Adjust fruit quantities in the jar with + and - buttons.
+  - Confirmation Modal: Includes a modal for confirming the "Remove All" action from the jar.
+  - Total Calories: Shows total calories of fruits in the jar.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+**Architecture and Design:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Custom Hooks:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  - useFruits: Handles fruit data, grouping, and pagination.
+  - useJar: Manages jar state, including adding/removing fruits and calculating total calories.
+
+- Modularization: The application is modularized to enhance reusability and maintainability.
+
+  - Components: All the Components are designed to reuse across the application (mostly on app's pages).
+  - Hooks: Custom hooks manage specific aspects of functionality, making it easy to extend or modify features based on any new requirements/ features and functionality debugging is easy. (These hooks are used on app's pages)
+
+- State Management with Jotai:
+
+  - Jar Atoms: State for jar fruits and total calories is managed using Jotai atoms. This ensures that state changes are efficiently propagated across components.
+    - jarFruitsAtom: Holds the current fruits in the jar and their quantities.
+    - totalCaloriesAtom: Tracks the total calories of the fruits in the jar.
+
+- Tailwind CSS:
+
+  - Styling: Utilizes Tailwind CSS for utility-first styling, allowing for fast and consistent design implementation.
+  - @apply Directive: Simplifies custom CSS rules.
+  - Responsiveness: Ensures mobile-friendliness and adapts to various screen sizes.
+
+---
+
+**Future Enhancements**
+
+- Search Functionality: Add a search bar for filtering fruits or groups.
+- Improved Grouping: Add additional grouping options.
+- User Accounts: Save jar contents and favorite fruits with a backend setup.
+- UI/UX Enhancements: Improve user experience with advanced UI features.
+
+---
+
+**Thanks for reading me!**
